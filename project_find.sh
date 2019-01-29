@@ -1,10 +1,10 @@
 
 #program to return all the directories in a directory
-
+mkdir -p /var/tmp/temp_project_find
 if [[ -d ~/temp ]]; then
-	rm ~/temp_project_find/direct*.txt		2> /dev/null
-	rm ~/temp_project_find/regular_files*.txt	2> /dev/null
-	rm ~/temp_project_find/symbolic_links.txt  	2> /dev/null
+	rm var/tmp/temp_project_find/direct*.txt		2> /dev/null
+	rm /var/tmp/regular_files*.txt	2> /dev/null
+	rm /var/temp/temp_project_find/symbolic_links.txt  	2> /dev/null
 	 #mkdir ~/temp_project_find/	
 else
 	mkdir ~/temp_project_find/
