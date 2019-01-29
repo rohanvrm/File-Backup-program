@@ -1,8 +1,8 @@
 
 #program to return all the directories in a directory
 mkdir -p /var/tmp/temp_project_find
-if [[ -d ~/temp ]]; then
-	rm var/tmp/temp_project_find/direct*.txt		2> /dev/null
+if [[ -d /var/tmp/temp ]]; then
+	rm /var/tmp/temp_project_find/direct*.txt		2> /dev/null
 	rm /var/tmp/regular_files*.txt	2> /dev/null
 	rm /var/temp/temp_project_find/symbolic_links.txt  	2> /dev/null
 	 #mkdir ~/temp_project_find/	
@@ -20,18 +20,18 @@ depth=$((depth+1))
 
 directory_list () {
 	curr_directory=$(pwd)           # returns current directory, to further check
-	if [ -f ~/temp_project_find/directory_$depth.txt ]; then
-		rm ~/temp_project_find/directory_$depth.txt
+	if [ -f /var/tmp/temp_project_find/directory_$depth.txt ]; then
+		rm /var/tmp/temp_project_find/directory_$depth.txt
 	fi
 	((count$depth=0))
 	for i in * ; do
 			if [[ -L "$i" ]] ; then
-			echo "$curr_directory/$i" >> ~/temp_project_find/symbolic_links.txt		
+			echo "$curr_directory/$i" >> /var/tmp/temp_project_find/symbolic_links.txt		
 			elif [[ -d "$i" ]] ; then
-			echo "$curr_directory/$i" >> ~/temp_project_find/directory_$depth.txt
+			echo "$curr_directory/$i" >> /var/tmp/temp_project_find/directory_$depth.txt
 			((count$depth= $((count$depth + 1)) )) 		
 		elif [[ -f "$i" ]]; then
-			echo $curr_directory/"$i" >> ~/temp_project_find/regular_files.txt
+			echo $curr_directory/"$i" >> /var/tmp/temp_project_find/regular_files.txt
 		fi
 	done
 	echo "Function completed"
@@ -56,7 +56,7 @@ while (( count1 > 0 )); do
 		cd ..
 		depth=$(( depth - 1 ))
 		(( count$depth =  $((count$depth - 1)) )) 
-		echo "$(tail -n +2 ~/temp_project_find/directory_$depth.txt)" > ~/temp_project_find/directory_$depth.txt
+		echo "$(tail -n +2 ~/temp_project_find/directory_$depth.txt)" > /var/tmp/temp_project_find/directory_$depth.txt
 	fi
 done
 
