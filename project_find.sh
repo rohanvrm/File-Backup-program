@@ -2,7 +2,7 @@
 list-directory () {
 
 if [ ! -n "$1" ] && [ ! -d "$1" ]; then
-	echo "usage: $(basename $0) directory" >&2
+	echo "usage: list-directory directory" >&2
 	return 1;
 fi
 
