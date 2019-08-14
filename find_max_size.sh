@@ -34,7 +34,7 @@ echo "Temporary folder created! proceeding with further execution"
 
 # Funtion
 local depth=0
-# local temp_size
+local temp_size
 
 depth=0
 cd "$1"
@@ -96,6 +96,6 @@ while (( count1 > 0 )); do
 done
 echo "Directory scan completed"
 printf "List stored in %s\n" $temp_folder
-printf "\n\"%s\" -> \"%s\"\n" $required_file $max_size
+printf "\n\"%s\" -> \"%s KB\"\n" $required_file $((max_size/8))
 cd "$start_directory"
 }
