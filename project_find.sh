@@ -1,5 +1,8 @@
 #program to return all the directories in a directory
+
 list-directory () {
+local start_directory
+start_directory=$(pwd)
 
 if [ ! -n "$1" ] && [ ! -d "$1" ]; then
 	echo "usage: $(basename $0) directory" >&2
@@ -7,6 +10,12 @@ if [ ! -n "$1" ] && [ ! -d "$1" ]; then
 fi
 
 local temp_folder
+local max_size
+local required_file
+
+max_size=0
+temp_size=0
+required_file="Directory Empty"
 
 temp_folder="/var/tmp/temp_project_find"
 
@@ -25,11 +34,12 @@ echo "Temporary folder created! proceeding with further execution"
 
 # Funtion
 local depth=0
+# local temp_size
 
 depth=0
 cd "$1"
-depth=$((depth+1))
-(( count$depth = 0))
+depth=$((depth+1 ))
+(( count$depth = 0 ))
 
 directory_list () {
 	curr_directory=$(pwd)           # returns current directory, to further check
@@ -38,12 +48,19 @@ directory_list () {
 	fi
 	((count$depth=0))
 	for i in * ; do
-			if [[ -L "$i" ]] ; then
+		if [[ -L "$i" ]]; then
 			echo "$curr_directory/$i" >> "$temp_folder/symbolic_links.txt"		
-			elif [[ -d "$i" ]] ; then
+		elif [[ -d "$i" ]]; then
 			echo "$curr_directory/$i" >> "$temp_folder/directory_$depth.txt"
 			((count$depth= $((count$depth + 1)) )) 		
 		elif [[ -f "$i" ]]; then
+			# Check if the file size is greater than max_size
+			temp_size=$(stat -c%s "$i") 
+			if (( temp_size > max_size )); then 
+				required_file="$curr_directory/$i"
+				max_size=$temp_size
+			fi
+
 			echo "File $i"
 			echo "$curr_directory/$i" >> "$temp_folder/regular_files.txt"
 		fi
@@ -79,4 +96,6 @@ while (( count1 > 0 )); do
 done
 echo "Directory scan completed"
 printf "List stored in %s\n" $temp_folder
+printf "\n\"%s\" -> \"%s\"\n" $required_file $max_size
+cd "$start_directory"
 }
