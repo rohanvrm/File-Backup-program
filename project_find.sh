@@ -51,13 +51,8 @@ directory_list () {
 	# echo "Function completed"
  	return 
  	}
-#Test: required to test if variables are working as expected
-#echo $depth                  
-#echo $((count$depth))
-
+	
 directory_list
- 
-# echo "depth = $depth ,directory :- $curr_directory count = $((count$depth))"
 
 echo "Scanning $curr_directory"
 
@@ -70,7 +65,6 @@ while (( count1 > 0 )); do
 	echo "Scanning $curr_directory"
 	fi
 	if (( count$depth == 0 )); then
-		# echo "traversing back $directory done"		# Testing...!!!
 		cd ..
 		depth=$(( depth - 1 ))
 		(( count$depth =  $((count$depth - 1)) )) 
