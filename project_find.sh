@@ -72,5 +72,5 @@ while (( count1 > 0 )); do
 	fi
 done
 echo "Directory scan completed"
-printf "List stored in %s\n" $temp_folder
+
 }
